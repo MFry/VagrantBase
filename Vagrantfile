@@ -71,7 +71,15 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
+        ##############################
+        #     Apt-get Keys           #
+        ##############################
+        wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+        sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+        # updates the list of available packages and their versions, but it does not install or upgrade any packages.
         sudo apt-get -qq update
+        # actually installs newer versions of the packages you have. After updating the lists, the package manager knows about available updates for the software you have installed.
+        sudo apt-get -qq upgrade
         # Install all dependencies for build-essential (contains numerous packages for building packages)
         sudo apt-get -qq build-dep build-essential
         # Install git
@@ -101,7 +109,12 @@ Vagrant.configure("2") do |config|
         #   PostgreSQL Install       #
         ##############################
         sudo apt-get -qq build-dep postgresql
-
+        ##############################
+        #   Jenkins Install          #
+        ##############################
+        sudo apt-get -qq install default-jre
+        sudo apt-get -qq install default-jdk
+        sudo apt-get -qq install jenkins
         vagrantTip="The shared directory is located at /vagrant\nTo access your shared files: cd /vagrant"
         echo -e $vagrantTip > /etc/motd
    SHELL
