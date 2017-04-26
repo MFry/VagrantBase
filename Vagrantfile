@@ -112,8 +112,6 @@ Vagrant.configure("2") do |config|
         ##############################
         #   Jenkins Install          #
         ##############################
-        sudo apt-get -qq install default-jre
-        sudo apt-get -qq install default-jdk
         sudo apt-get -qq install jenkins
         vagrantTip="The shared directory is located at /vagrant\nTo access your shared files: cd /vagrant"
         echo -e $vagrantTip > /etc/motd
