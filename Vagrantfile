@@ -121,12 +121,14 @@ Vagrant.configure("2") do |config|
         #   Jenkins Install          #
         ##############################
         sudo apt-get -qq install jenkins
-        vagrantTip="The shared directory is located at /vagrant\nTo access your shared files: cd /vagrant"
         ##############################
         #   Anaconda                 #
         ##############################
+        sudo apt-get install python3-pip
         sudo wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.3.0-Linux-x86_64.sh
         sudo bash Anaconda-2.3.0-Linux-x86_64.sh
+
+        vagrantTip="The shared directory is located at /vagrant\nTo access your shared files: cd /vagrant"
         echo -e $vagrantTip > /etc/motd
    SHELL
   # Change the vagrant user's shell to zsh
